@@ -8,5 +8,5 @@
 
 ### Programinė įranga
 
-* [Android studio] (https://developer.android.com/studio/index.html)
-* [Instaliavimo instrukcijos] (https://docs.google.com/document/d/1IShOUGGaBslHRXShY0kdScLDbyFM8PJmFhDF5JTlbRk/edit?usp=sharing)
+* [Android studio](https://developer.android.com/studio/index.html)
+* [Instaliavimo instrukcijos](https://docs.google.com/document/d/1IShOUGGaBslHRXShY0kdScLDbyFM8PJmFhDF5JTlbRk/edit?usp=sharing)
