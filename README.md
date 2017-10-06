@@ -10,3 +10,7 @@
 
 * [Android studio](https://developer.android.com/studio/index.html)
 * [Instaliavimo instrukcijos](https://docs.google.com/document/d/1IShOUGGaBslHRXShY0kdScLDbyFM8PJmFhDF5JTlbRk/edit?usp=sharing)
+
+### Informacija aglų kalba
+
+* [Getting Started | Android Developers](https://developer.android.com/training/index.html)
