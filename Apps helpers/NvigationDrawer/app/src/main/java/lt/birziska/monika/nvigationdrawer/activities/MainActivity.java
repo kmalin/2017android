@@ -1,6 +1,5 @@
 package lt.birziska.monika.nvigationdrawer.activities;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -13,8 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
+import lt.birziska.monika.nvigationdrawer.Modules.DrawerMenuItem;
 import lt.birziska.monika.nvigationdrawer.fragments.FirstFragment;
 import lt.birziska.monika.nvigationdrawer.fragments.SecondFragment;
 
@@ -24,19 +23,13 @@ public class MainActivity extends AppCompatActivity{
 
     private DrawerLayout drawer;
     private Toolbar toolbar;
-    private Context context;
     private NavigationView navigationView;
 
     // index to identify current nav menu item
     public static int navItemIndex = 0;
 
-    // tags used to attach the fragments
-    private static final String TAG_FIRST = "first";
-    private static final String TAG_SECOND = "second";
-    public static String CURRENT_TAG = TAG_FIRST;
-
     // toolbar titles respected to selected nav menu item
-    private String[] activityTitles;
+    private DrawerMenuItem[] menuItems;
 
     private Handler mHandler;
 
@@ -58,18 +51,16 @@ public class MainActivity extends AppCompatActivity{
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
 
-        context = getApplicationContext();
-
-        activityTitles = new String[]{
-                "First page",
-                "Second page"
+        menuItems = new DrawerMenuItem[]{
+               new DrawerMenuItem("First page", "first"),
+               new DrawerMenuItem("Second page", "second")
         };
 
         setUpNavigationView();
+        addMenuItemInNavMenuDrawer();
 
         if (savedInstanceState == null) {
             navItemIndex = 0;
-            CURRENT_TAG = TAG_FIRST;
             loadFragments();
         }
     }
@@ -87,7 +78,7 @@ public class MainActivity extends AppCompatActivity{
 
         // if user select the current navigation menu again, don't do anything
         // just close the navigation drawer
-        if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null) {
+        if (getSupportFragmentManager().findFragmentByTag(menuItems[navItemIndex].getTag()) != null) {
             drawer.closeDrawers();
         }
 
@@ -103,7 +94,7 @@ public class MainActivity extends AppCompatActivity{
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
                         android.R.anim.fade_out);
-                fragmentTransaction.replace(R.id.frame, fragment, CURRENT_TAG);
+                fragmentTransaction.replace(R.id.frame, fragment, menuItems[navItemIndex].getTag());
                 fragmentTransaction.commitAllowingStateLoss();
             }
         };
@@ -134,7 +125,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void setToolbarTitle() {
-        getSupportActionBar().setTitle(activityTitles[navItemIndex]);
+        getSupportActionBar().setTitle(menuItems[navItemIndex].getTitle());
     }
 
     private void selectNavMenu() {
@@ -154,7 +145,6 @@ public class MainActivity extends AppCompatActivity{
 
         if (navItemIndex != 0) {
             navItemIndex = 0;
-            CURRENT_TAG = TAG_FIRST;
             loadFragments();
             return;
         }
@@ -162,11 +152,14 @@ public class MainActivity extends AppCompatActivity{
         super.onBackPressed();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+    private void addMenuItemInNavMenuDrawer() {
+        Menu menu = navigationView.getMenu();
+        for(int i=0; i<menuItems.length; i++){
+            menu.add(0, i, Menu.NONE, menuItems[i].getTitle());
+        }
+        menu.setGroupCheckable(0, true, true);
+
+        navigationView.invalidate();
     }
 
     private class DrawerItemClickListener
@@ -178,21 +171,12 @@ public class MainActivity extends AppCompatActivity{
             // Handle navigation view item clicks here.
             int id = item.getItemId();
 
-            if (id == R.id.nav_first_page) {
-                Toast.makeText(context, "First page", Toast.LENGTH_SHORT).show();
-                navItemIndex = 0;
-                CURRENT_TAG = TAG_FIRST;
-            } else if (id == R.id.nav_second_page) {
-                Toast.makeText(context, "Second page", Toast.LENGTH_SHORT).show();
-                navItemIndex = 1;
-                CURRENT_TAG = TAG_SECOND;
-            }
+            navItemIndex = id;
             if (item.isChecked()) {
                 item.setChecked(false);
             } else {
                 item.setChecked(true);
             }
-            item.setChecked(true);
 
             loadFragments();
             return true;
