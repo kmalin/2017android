@@ -1,4 +1,4 @@
-package lt.birziska.monika.nvigationdrawer.fragments;
+package lt.birziska.monika.lesson.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import lt.birziska.monika.nvigationdrawer.R;
+import lt.birziska.monika.lesson.R;
 
 public class FirstFragment extends Fragment {
 

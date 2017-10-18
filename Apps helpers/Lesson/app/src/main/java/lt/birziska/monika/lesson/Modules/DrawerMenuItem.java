@@ -1,4 +1,4 @@
-package lt.birziska.monika.nvigationdrawer.Modules;
+package lt.birziska.monika.lesson.Modules;
 
 public class DrawerMenuItem {
     private String title;

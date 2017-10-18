@@ -1,4 +1,4 @@
-package lt.birziska.monika.nvigationdrawer.activities;
+package lt.birziska.monika.lesson.activities;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,11 +13,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import lt.birziska.monika.nvigationdrawer.Modules.DrawerMenuItem;
-import lt.birziska.monika.nvigationdrawer.fragments.FirstFragment;
-import lt.birziska.monika.nvigationdrawer.fragments.SecondFragment;
+import lt.birziska.monika.lesson.Modules.DrawerMenuItem;
+import lt.birziska.monika.lesson.fragments.FirstFragment;
+import lt.birziska.monika.lesson.fragments.SecondFragment;
 
-import lt.birziska.monika.nvigationdrawer.R;
+import lt.birziska.monika.lesson.R;
 
 public class MainActivity extends AppCompatActivity{
 
