@@ -15,7 +15,7 @@ import android.view.MenuItem;
 
 import lt.birziska.monika.lesson.Modules.DrawerMenuItem;
 import lt.birziska.monika.lesson.fragments.CalculatorFragment;
-import lt.birziska.monika.lesson.fragments.SecondFragment;
+import lt.birziska.monika.lesson.fragments.ProgressFragment;
 
 import lt.birziska.monika.lesson.R;
 
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity{
 
         menuItems = new DrawerMenuItem[]{
                new DrawerMenuItem("Calculator page", "calculator"),
-               new DrawerMenuItem("Second page", "second")
+               new DrawerMenuItem("Progress page", "progress")
         };
 
         setUpNavigationView();
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity{
                 CalculatorFragment calculatorFragment = new CalculatorFragment();
                 return calculatorFragment;
             case 1:
-                SecondFragment secondFragment = new SecondFragment();
+                ProgressFragment secondFragment = new ProgressFragment();
                 return secondFragment;
             default:
                 return new CalculatorFragment();
