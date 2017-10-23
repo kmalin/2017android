@@ -18,6 +18,7 @@ import lt.birziska.monika.lesson.fragments.CalculatorFragment;
 import lt.birziska.monika.lesson.fragments.ProgressFragment;
 
 import lt.birziska.monika.lesson.R;
+import lt.birziska.monika.lesson.fragments.TogglerFragment;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -52,8 +53,9 @@ public class MainActivity extends AppCompatActivity{
         navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         menuItems = new DrawerMenuItem[]{
-               new DrawerMenuItem("Calculator page", "calculator"),
-               new DrawerMenuItem("Progress page", "progress")
+                new DrawerMenuItem("Toggler", "toggler"),
+                new DrawerMenuItem("Calculator", "calculator"),
+                new DrawerMenuItem("Progress", "progress")
         };
 
         setUpNavigationView();
@@ -114,11 +116,14 @@ public class MainActivity extends AppCompatActivity{
     private Fragment getFragments() {
         switch (navItemIndex) {
             case 0:
+                TogglerFragment togglerFragment = new TogglerFragment();
+                return togglerFragment;
+            case 1:
                 CalculatorFragment calculatorFragment = new CalculatorFragment();
                 return calculatorFragment;
-            case 1:
-                ProgressFragment secondFragment = new ProgressFragment();
-                return secondFragment;
+            case 2:
+                ProgressFragment progressFragment = new ProgressFragment();
+                return progressFragment;
             default:
                 return new CalculatorFragment();
         }
