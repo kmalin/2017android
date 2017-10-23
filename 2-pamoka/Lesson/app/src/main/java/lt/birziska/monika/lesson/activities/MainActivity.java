@@ -15,9 +15,9 @@ import android.view.MenuItem;
 
 import lt.birziska.monika.lesson.Modules.DrawerMenuItem;
 import lt.birziska.monika.lesson.fragments.CalculatorFragment;
-import lt.birziska.monika.lesson.fragments.ProgressFragment;
 
 import lt.birziska.monika.lesson.R;
+import lt.birziska.monika.lesson.fragments.SeekBarFragment;
 import lt.birziska.monika.lesson.fragments.TogglerFragment;
 
 public class MainActivity extends AppCompatActivity{
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity{
         menuItems = new DrawerMenuItem[]{
                 new DrawerMenuItem("Toggler", "toggler"),
                 new DrawerMenuItem("Calculator", "calculator"),
-                new DrawerMenuItem("Progress", "progress")
+                new DrawerMenuItem("Seek Bar", "seekBar"),
         };
 
         setUpNavigationView();
@@ -122,8 +122,8 @@ public class MainActivity extends AppCompatActivity{
                 CalculatorFragment calculatorFragment = new CalculatorFragment();
                 return calculatorFragment;
             case 2:
-                ProgressFragment progressFragment = new ProgressFragment();
-                return progressFragment;
+                SeekBarFragment seekBarFragment = new SeekBarFragment();
+                return seekBarFragment;
             default:
                 return new CalculatorFragment();
         }
