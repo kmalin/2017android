@@ -24,8 +24,9 @@ public class SeekBarFragment extends Fragment {
         batmanImage = (ImageView) rootView.findViewById(R.id.batmanImageView);
         kittenImage = (ImageView) rootView.findViewById(R.id.kittenImageView);
 
-        //initial kitten alpha
-        kittenImage.setImageAlpha(0);
+        //initial image alphas
+        kittenImage.setImageAlpha(255);
+        batmanImage.setImageAlpha(0);
 
         //set seekbar
         seekBar = (SeekBar)rootView.findViewById(R.id.seekBar);
@@ -36,13 +37,12 @@ public class SeekBarFragment extends Fragment {
     private class SeekBarChange implements SeekBar.OnSeekBarChangeListener {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            //get seekBarProgress
-           Integer seekBarProgress = seekBar.getProgress();
+            //to get maximal value that from the seekBar use a method - getMax()
 
-            //bellow set image alpha(opacity) use .setImageAlpha function
-            //set here kitten alpha should be seekBarProgress value
+            //set image alpha(opacity) use .setImageAlpha function
 
-            //set here batman alpha should be the difference of seekBarProgress and max value of seekBar user function .getMax()
+            //set batman alpha, should be seekBarProgress value
+            //set kitten alpha, should be the difference of seekBarProgress and max value of seekBar method getMax()
         }
 
         @Override

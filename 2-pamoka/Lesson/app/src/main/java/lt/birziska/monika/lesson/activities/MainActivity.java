@@ -2,9 +2,9 @@ package lt.birziska.monika.lesson.activities;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,9 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import lt.birziska.monika.lesson.Modules.DrawerMenuItem;
-import lt.birziska.monika.lesson.fragments.CalculatorFragment;
-
 import lt.birziska.monika.lesson.R;
+import lt.birziska.monika.lesson.fragments.CalculatorFragment;
 import lt.birziska.monika.lesson.fragments.SeekBarFragment;
 import lt.birziska.monika.lesson.fragments.TogglerFragment;
 
@@ -54,8 +53,8 @@ public class MainActivity extends AppCompatActivity{
 
         menuItems = new DrawerMenuItem[]{
                 new DrawerMenuItem("Toggler", "toggler"),
-                new DrawerMenuItem("Calculator", "calculator"),
                 new DrawerMenuItem("Seek Bar", "seekBar"),
+                new DrawerMenuItem("Calculator", "calculator"),
         };
 
         setUpNavigationView();
@@ -119,11 +118,11 @@ public class MainActivity extends AppCompatActivity{
                 TogglerFragment togglerFragment = new TogglerFragment();
                 return togglerFragment;
             case 1:
-                CalculatorFragment calculatorFragment = new CalculatorFragment();
-                return calculatorFragment;
-            case 2:
                 SeekBarFragment seekBarFragment = new SeekBarFragment();
                 return seekBarFragment;
+            case 2:
+                CalculatorFragment calculatorFragment = new CalculatorFragment();
+                return calculatorFragment;
             default:
                 return new CalculatorFragment();
         }

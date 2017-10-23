@@ -33,14 +33,12 @@ public class TogglerFragment extends Fragment {
 
     class OnCheckedChange implements CompoundButton.OnCheckedChangeListener {
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            // do something, the isChecked will be
-            // true if the switch is in the On position
+            // isChecked contains boolean value of the checked state of the Switch component
 
-            // to change visibility call a method: imageView.setVisibility
+            // to change visibility, call a method - imageView.setVisibility
 
             // visible state is represented by View.VISIBLE
             // invisible state is represented by View.INVISIBLE
-
         }
     }
 }
