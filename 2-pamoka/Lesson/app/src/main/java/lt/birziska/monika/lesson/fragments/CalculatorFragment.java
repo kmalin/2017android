@@ -46,8 +46,9 @@ public class CalculatorFragment extends Fragment {
         public void onClick(View v) {
             Double firstInputValue = Double.parseDouble(firstInput.getText().toString());
             Double secondInputValue = Double.parseDouble(secondInput.getText().toString());
-            Double result = firstInputValue + secondInputValue;
-            resultTextView.setText(result.toString());
+
+            //fill in the implementation here
+            //Hint: to set the value of the TextView component use resultTextView.setText method
         }
     }
 
@@ -56,8 +57,9 @@ public class CalculatorFragment extends Fragment {
         public void onClick(View v) {
             Double firstInputValue = Double.parseDouble(firstInput.getText().toString());
             Double secondInputValue = Double.parseDouble(secondInput.getText().toString());
-            Double result = firstInputValue - secondInputValue;
-            resultTextView.setText(result.toString());
+
+            //fill in the implementation here
+            //Hint: to set the value of the TextView component use resultTextView.setText method
         }
     }
 
@@ -66,8 +68,9 @@ public class CalculatorFragment extends Fragment {
         public void onClick(View v) {
             Double firstInputValue = Double.parseDouble(firstInput.getText().toString());
             Double secondInputValue = Double.parseDouble(secondInput.getText().toString());
-            Double result = firstInputValue * secondInputValue;
-            resultTextView.setText(result.toString());
+
+            //fill in the implementation here
+            //Hint: to set the value of the TextView component use resultTextView.setText method
         }
     }
 
@@ -76,9 +79,9 @@ public class CalculatorFragment extends Fragment {
         public void onClick(View v) {
             Double firstInputValue = Double.parseDouble(firstInput.getText().toString());
             Double secondInputValue = Double.parseDouble(secondInput.getText().toString());
-            Double result = firstInputValue / secondInputValue;
-            resultTextView.setText(result.toString());
+
+            //fill in the implementation here
+            //Hint: to set the value of the TextView component use resultTextView.setText method
         }
     }
-
 }
