@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="lt.birziska.minisweeper.StartMenu">
+
+    <TextView
+        android:id="@+id/crateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="29dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginRight="49dp"
+        android:text="Open"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/crateImageView"
+        app:layout_constraintRight_toLeftOf="@+id/crateImageView" />
+
+    <TextView
+        android:id="@+id/bombTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="29dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginRight="49dp"
+        android:text="Avoid"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/bombImageView"
+        app:layout_constraintRight_toLeftOf="@+id/bombImageView" />
+
+    <ImageView
+        android:id="@+id/crateImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/crate_200"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="50dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.5" />
+
+    <ImageView
+        android:id="@+id/bombImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/bomb_200"
+        app:layout_constraintTop_toBottomOf="@+id/crateImageView"
+        android:layout_marginTop="38dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.5" />
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="69dp"
+        android:text="Start"
+        android:textSize="30sp"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bombImageView" />
+</android.support.constraint.ConstraintLayout>
