@@ -62,7 +62,7 @@ public class Game extends AppCompatActivity {
     /*
     Method that handles the click of the crate.
      */
-    public void onCreateClick(View v){
+    public void onCrateClick(View v){
         ImageButton button = (ImageButton)v;
         // id of the button has values from 0 to size * size - 1
         int id = button.getId();
@@ -258,7 +258,7 @@ public class Game extends AppCompatActivity {
                 crate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onCreateClick(v);
+                        onCrateClick(v);
                     }
                 });
                 crate.setBackgroundColor(Color.TRANSPARENT);
