@@ -1,9 +1,11 @@
 package lt.birziska.kartuves;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -13,6 +15,8 @@ public class Game extends AppCompatActivity {
     private String currentWord;
     private boolean gameEnded;
     private LinearLayout gameLayout;
+    private int incorrectLetter;
+    private int correctLetter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +50,18 @@ public class Game extends AppCompatActivity {
         View gameOverLayout = findViewById(R.id.game_over_layout);
         gameOverLayout.setVisibility(View.INVISIBLE);
 
+        View textInputLayout = findViewById(R.id.text_input_layout);
+        textInputLayout.setVisibility(View.VISIBLE);
+        View submitLetterButton = findViewById(R.id.submit_letter_button);
+        submitLetterButton.setVisibility(View.VISIBLE);
+
         // clears all existing crates in the grid
         gameLayout = (LinearLayout) findViewById(R.id.game_layout);
+        gameLayout.removeAllViews();
         generatePuzzle(gameLayout);
 
-
+        incorrectLetter = 0;
+        correctLetter = 0;
         gameEnded = false;
     }
 
@@ -74,18 +85,45 @@ public class Game extends AppCompatActivity {
     private void submitLetter() {
         EditText editText = (EditText) findViewById(R.id.edit_text);
         String guessLetterString = editText.getText().toString();
+        editText.setText("");
+        //close keyboard
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+        if(guessLetterString == null || guessLetterString.isEmpty())
+        {
+            return;
+        }
         char guessLetter = guessLetterString.toLowerCase().charAt(0);
-        boolean wordContainsLetter = currentWord.contains(guessLetterString);
+        String currentWordLowerCase = currentWord.toLowerCase();
+        boolean wordContainsLetter = currentWordLowerCase.contains(guessLetterString);
         if(wordContainsLetter)
         {
-            for( int i = 0; i < currentWord.length(); i++ )
+            for( int i = 0; i < currentWordLowerCase.length(); i++ )
             {
-                if(guessLetter == currentWord.charAt(i))
+                if(guessLetter == currentWordLowerCase.charAt(i))
                 {
                     TextView textView = (TextView) gameLayout.getChildAt(i);
                     textView.setText(guessLetterString);
+                    correctLetter++;
+                    if(correctLetter >= currentWordLowerCase.length())
+                    {
+                        setGameWon();
+                    }
                 }
             }
+        }
+        else
+        {
+            incorrectLetter ++;
+            //show another image
+            if(incorrectLetter > 9)
+            {
+                setGameLost();
+            }
+
         }
     }
 
@@ -100,6 +138,11 @@ public class Game extends AppCompatActivity {
         View gameOverLayout = findViewById(R.id.game_over_layout);
         gameOverLayout.setVisibility(View.VISIBLE);
 
+        View textInputLayout = findViewById(R.id.text_input_layout);
+        textInputLayout.setVisibility(View.INVISIBLE);
+        View submitLetterButton = findViewById(R.id.submit_letter_button);
+        submitLetterButton.setVisibility(View.INVISIBLE);
+
         gameEnded = true;
     }
 
@@ -113,6 +156,11 @@ public class Game extends AppCompatActivity {
 
         View gameOverLayout = findViewById(R.id.game_over_layout);
         gameOverLayout.setVisibility(View.VISIBLE);
+
+        View textInputLayout = findViewById(R.id.text_input_layout);
+        textInputLayout.setVisibility(View.INVISIBLE);
+        View submitLetterButton = findViewById(R.id.submit_letter_button);
+        submitLetterButton.setVisibility(View.INVISIBLE);
 
         gameEnded = true;
     }
