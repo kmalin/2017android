@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -11,8 +12,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Game extends AppCompatActivity {
     private String currentWord;
+    private List<String> guessedLetters;
     private boolean gameEnded;
     private LinearLayout gameLayout;
     private int incorrectLetter;
@@ -54,20 +59,31 @@ public class Game extends AppCompatActivity {
         textInputLayout.setVisibility(View.VISIBLE);
         View submitLetterButton = findViewById(R.id.submit_letter_button);
         submitLetterButton.setVisibility(View.VISIBLE);
+        TextView guessedTextView = (TextView) findViewById(R.id.guessed_letters_text_view);
+        guessedTextView.setVisibility(View.VISIBLE);
 
         // clears all existing crates in the grid
         gameLayout = (LinearLayout) findViewById(R.id.game_layout);
         gameLayout.removeAllViews();
         generatePuzzle(gameLayout);
 
+        UpdateGuessedLetters("");
         incorrectLetter = 0;
         correctLetter = 0;
         gameEnded = false;
     }
 
+    /*
+  Initializes the game.
+   */
+    private void initGameWord() {
+        WordsList list  = new WordsList();
+        currentWord = list.GetGamesWord();
+        guessedLetters = new ArrayList<>();
+    }
+
     private void generatePuzzle(LinearLayout layout) {
-        //gets word from list
-        currentWord = "lesson";
+        initGameWord();
         for( int i = 0; i < currentWord.length(); i++ )
         {
             TextView textView = new TextView(this);
@@ -96,6 +112,8 @@ public class Game extends AppCompatActivity {
         {
             return;
         }
+
+        UpdateGuessedLetters(guessLetterString);
         char guessLetter = guessLetterString.toLowerCase().charAt(0);
         String currentWordLowerCase = currentWord.toLowerCase();
         boolean wordContainsLetter = currentWordLowerCase.contains(guessLetterString);
@@ -121,10 +139,37 @@ public class Game extends AppCompatActivity {
             //show another image
             if(incorrectLetter > 9)
             {
+                //show current word
+                for( int i = 0; i < currentWordLowerCase.length(); i++ )
+                {
+                    if('_' == currentWordLowerCase.charAt(i))
+                    {
+                        TextView textView = (TextView) gameLayout.getChildAt(i);
+                        textView.setText(guessLetterString);
+                        correctLetter++;
+                        if(correctLetter >= currentWordLowerCase.length())
+                        {
+                            setGameWon();
+                        }
+                    }
+                }
+
                 setGameLost();
             }
 
         }
+    }
+
+    /*
+    Updates guessed letters
+    Add string to guessedLetters. And updates textView text.
+    */
+    private void UpdateGuessedLetters(String guessedLetter) {
+        if(guessedLetter.isEmpty() == false) {
+            guessedLetters.add(guessedLetter);
+        }
+        TextView guessedTextView = (TextView) findViewById(R.id.guessed_letters_text_view);
+        guessedTextView.setText( "Guessed letters: " + TextUtils.join(", ", guessedLetters));
     }
 
     /*
@@ -142,6 +187,8 @@ public class Game extends AppCompatActivity {
         textInputLayout.setVisibility(View.INVISIBLE);
         View submitLetterButton = findViewById(R.id.submit_letter_button);
         submitLetterButton.setVisibility(View.INVISIBLE);
+        TextView guessedTextView = (TextView) findViewById(R.id.guessed_letters_text_view);
+        guessedTextView.setVisibility(View.INVISIBLE);
 
         gameEnded = true;
     }
@@ -161,6 +208,8 @@ public class Game extends AppCompatActivity {
         textInputLayout.setVisibility(View.INVISIBLE);
         View submitLetterButton = findViewById(R.id.submit_letter_button);
         submitLetterButton.setVisibility(View.INVISIBLE);
+        TextView guessedTextView = (TextView) findViewById(R.id.guessed_letters_text_view);
+        guessedTextView.setVisibility(View.INVISIBLE);
 
         gameEnded = true;
     }
