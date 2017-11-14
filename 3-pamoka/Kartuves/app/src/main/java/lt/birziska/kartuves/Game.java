@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,8 +21,8 @@ public class Game extends AppCompatActivity {
     private List<String> guessedLetters;
     private boolean gameEnded;
     private LinearLayout gameLayout;
-    private int incorrectLetter;
-    private int correctLetter;
+    private int incorectLetterCount;
+    private int correctLetterCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +69,8 @@ public class Game extends AppCompatActivity {
         generatePuzzle(gameLayout);
 
         UpdateGuessedLetters("");
-        incorrectLetter = 0;
-        correctLetter = 0;
+        incorectLetterCount = 0;
+        correctLetterCount = 0;
         gameEnded = false;
     }
 
@@ -125,8 +126,8 @@ public class Game extends AppCompatActivity {
                 {
                     TextView textView = (TextView) gameLayout.getChildAt(i);
                     textView.setText(guessLetterString);
-                    correctLetter++;
-                    if(correctLetter >= currentWordLowerCase.length())
+                    correctLetterCount++;
+                    if(correctLetterCount >= currentWordLowerCase.length())
                     {
                         setGameWon();
                     }
@@ -135,9 +136,12 @@ public class Game extends AppCompatActivity {
         }
         else
         {
-            incorrectLetter ++;
+            incorectLetterCount++;
             //show another image
-            if(incorrectLetter > 9)
+            ImageView image = (ImageView) findViewById(R.id.imageView);
+            image.setImageResource(getResourceIdByCount(incorectLetterCount));
+
+            if(incorectLetterCount > 9)
             {
                 //show current word
                 for( int i = 0; i < currentWordLowerCase.length(); i++ )
@@ -146,8 +150,8 @@ public class Game extends AppCompatActivity {
                     {
                         TextView textView = (TextView) gameLayout.getChildAt(i);
                         textView.setText(guessLetterString);
-                        correctLetter++;
-                        if(correctLetter >= currentWordLowerCase.length())
+                        correctLetterCount++;
+                        if(correctLetterCount >= currentWordLowerCase.length())
                         {
                             setGameWon();
                         }
@@ -213,4 +217,33 @@ public class Game extends AppCompatActivity {
 
         gameEnded = true;
     }
+
+
+    private int getResourceIdByCount(int count) {
+
+        switch (count){
+            case 1:
+                return R.drawable.hang1;
+            case 2:
+                return R.drawable.hang2;
+            case 3:
+                return R.drawable.hang3;
+            case 4:
+                return R.drawable.hang4;
+            case 5:
+                return R.drawable.hang5;
+            case 6:
+                return R.drawable.hang6;
+            case 7:
+                return R.drawable.hang7;
+            case 8:
+                return R.drawable.hang8;
+            case 9:
+                return R.drawable.hang9;
+            default:
+                return 0;
+        }
+    }
+
+
 }
