@@ -67,18 +67,32 @@ public class Game extends AppCompatActivity {
         // id of the button has values from 0 to size * size - 1
         int id = button.getId();
 
-        // get the row and the column of the cell
+        if (gameEnded) {
+            return;
+        }
 
-        // if game is ended, then nothing should be done in this event
-        // if you already clicked on this crate before, then nothing should be done in this event
+        int row = id / size;
+        int column = id % size;
 
-        // check if there is a bomb in this cell
-        // if there is a bomb, then set the bomb image and end the game with a failure state
+        boolean hasBomb = bombArray[row][column];
 
-        // if there isn't a bomb in this cell, then:
-        // calculate and show opened crates count
-        // put appropriate image on the image button
-        // if victory condition is reached, end the game with the winning state
+        if (hasBomb) {
+            button.setImageResource(R.drawable.bomb_200);
+            setGameLost();
+        } else {
+            cratesOpened++;
+            TextView cratesOpenedCount = (TextView) findViewById(R.id.cratesOpenedCount);
+            cratesOpenedCount.setText(Integer.toString(cratesOpened));
+
+            int count = bombCountInNeighbouringCells(row, column);
+
+            int restId = getResourceIdByCount(count);
+            button.setImageResource(restId);
+
+            if (cratesOpened >= 10) {
+                setGameWon();
+            }
+        }
     }
 
     /*
