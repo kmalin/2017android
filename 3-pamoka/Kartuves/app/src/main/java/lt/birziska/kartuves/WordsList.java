@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class WordsList {
-    public String GetGamesWord()
+    public static String GetGamesWord()
     {
         String[] words = new String []{
                 "cat",
