@@ -6,20 +6,32 @@ import java.util.List;
 
 public class GameModel {
 
-    private String currentWord;
-    private List<Character> allGuessedLetters;
-    private List<Character> incorrectlyGuessedLetters;
-
     private WordList wordList;
-    private int wordLength;
 
+    // Number of tries allowed
     private final int MAX_TRY_COUNT = 9;
 
+    // the length of the current word
+    private int wordLength;
+    // the current word
+    private String currentWord;
+
+    // shows whether the game ended or not
     private boolean gameEnded;
+    // shows whether the game was won or not
     private boolean gameWon;
+    // lists the current state of the letters in a word
+    // if letter was guessed then it is shown
+    // if letter was not guessed then '_' symbol is shown instead
     private Character[] currentlyOpenedWord;
+    // keeps track of the correctly opened letter count
     private int correctlyOpenedLetterCount;
+    // keeps track of the incorrectly guessed letter count
     private int incorrectlyGuessedLetterCount;
+    // lists all unique guessed letters to avoid guessing the same letter twice
+    private List<Character> allGuessedLetters;
+    // lists all the incorrectly guessed letters to show to user
+    private List<Character> incorrectlyGuessedLetters;
 
     public GameModel(WordList wordList){
         this.wordList = wordList;
@@ -46,40 +58,30 @@ public class GameModel {
 
     public void submitLetter(Character guessedLetter) {
 
-        if (allGuessedLetters.contains(guessedLetter)){
-            return;
-        }
-        allGuessedLetters.add(guessedLetter);
+        // please check that character was not used before
+        // useful functions:
+        // allGuessedLetters.contains(char) - returns true if the list contains given element, otherwise false
+        // allGuessedLetters.add(char) - adds given element to the list
 
-        if (GameHelpers.wordContainsLetter(guessedLetter, currentWord)){
 
-            for(int i = 0; i < currentWord.length(); i++){
-                char letterInAWord = currentWord.charAt(i);
+        // use for loop to iterate through all the indexes in the string
+        // useful functions:
+        // currentWord.length() - gets the length of the currentWord
+        // currentWord.charAt(index) - gets the character in the currentWord at the position index
 
-                if (letterInAWord == guessedLetter){
-                    correctlyOpenedLetterCount++;
-                    currentlyOpenedWord[i] = guessedLetter;
-                }
-            }
+        // find the matches and reveal correctly guessed letters in currentlyOpenedWord array
+        // keep track how many letters you have opened in correctlyOpenedLetterCount
+        // keep track if there were any matches
 
-            if (correctlyOpenedLetterCount == currentWord.length()){
-                gameEnded = true;
-                gameWon = true;
-            }
-        }
-        else {
-            incorrectlyGuessedLetterCount++;
-            incorrectlyGuessedLetters.add(guessedLetter);
-            if (incorrectlyGuessedLetterCount >= MAX_TRY_COUNT){
-                gameEnded = true;
-                gameWon = false;
 
-                for(int i = 0; i < currentWord.length(); i++){
-                    char letterInAWord = currentWord.charAt(i);
-                    currentlyOpenedWord[i] = letterInAWord;
-                }
-            }
-        }
+        // if there were any matches and if all the letters are guessed correctly
+        // then the game can end with a win
+
+        // if there were no matches
+        // store incorrectly guessed letter to incorrectlyGuessedLetters
+        // keep track of the number of incorrectly guessed letters in incorrectlyGuessedLetterCount
+        // if you have more incorrect guessed than is allowed, then the game must end with a loss
+        // for the end - reveal all un-guessed letters in currentlyOpenedWord
     }
 
     public boolean getGameEnded() {

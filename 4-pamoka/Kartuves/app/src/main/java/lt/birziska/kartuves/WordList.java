@@ -20,17 +20,17 @@ public class WordList {
     {
         List<String> correctLengthWords = new ArrayList<String>();
 
-        int[] lengths = new int[16];
-        for (String word: words) {
-            if (word.length() == length){
-                correctLengthWords.add(word);
-            }
-            lengths[word.length()]++;
-        }
+        // use for loop to select words having correct size
 
-        String word = correctLengthWords.get(getRandomIndex(correctLengthWords.size()));
+        // put those words into a list correctLengthWords
 
-        return word;
+        // select random word from the list
+        // useful functions:
+        // correctLengthWords.size() - size of the list
+        // correctLengthWords.get(index) - gets the element at the position index
+        // getRandomIndex(size) - picks an integer number from 0 to size - 1
+
+        return "replace"; // replace this with your implementation
     }
 
     private int getRandomIndex(int size){
