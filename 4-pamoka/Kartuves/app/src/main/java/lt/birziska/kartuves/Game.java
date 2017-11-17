@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -14,113 +15,78 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Game extends AppCompatActivity {
-    private String currentWord;
-    private List<String> guessedLetters;
+
     private LinearLayout gameLayout;
-    private int incorectLetterCount;
-    private int correctLetterCount;
-    private final int TRY_COUNT = 8;
+    private WordList wordList;
+    private GameModel gameModel;
 
     private void submitLetter() {
-        //close keybord DO NOT TOUCH!
+        //close keybord
         closeKeyboard();
 
         //get text value from R.id.edit_text
-        //convert text value to string using tosString() method
         EditText editText = (EditText) findViewById(R.id.edit_text);
-        String guessLetterString = editText.getText().toString();
-
-        //if the letter is null or empty
-        //*bonus you can also check if multiple letters are inputed
-        //*then show error message
-        //** double bonus check if letter is alphabetical
-        if(guessLetterString == null || guessLetterString.isEmpty())
-        {
+        Editable text = editText.getText();
+        if (text.length() == 0){
             return;
         }
+        //extract a Character from the text
+        Character letter = text.charAt(0);
+        letter = Character.toLowerCase(letter);
+        //clear the input field
+        editText.setText("");
 
-        //update the guessed letters
-        //use method UpdateGuessedLetter() wih is defined at bottom of page
-        UpdateGuessedLetters(guessLetterString);
+        //main action goes here
+        gameModel.submitLetter(letter);
 
-        //convert the letter to character
-        //use GameHelpers.toChar() method
-        char guessLetter = GameHelpers.toChar(guessLetterString);
+        //after game model is updated, then we need to display a its new state
+        updateGameState();
+    }
 
-        //check if the word contains the letter
-        // use method GameHelpers.wordContainsLetter()
-        boolean wordContainsLetter = GameHelpers.wordContainsLetter(guessLetter, currentWord);
+    /*
+    Updates the game state from the game model
+     */
+    private void updateGameState() {
 
-        //if word contains the letter
-        //using the for loop iterate threw current word length
-        //to get the current word lengt use .length() method
-        //increase correct letter count
-        //check if the game if won
-        if(wordContainsLetter)
-        {
-            for( int i = 0; i < currentWord.length(); i++ )
-            {
-                if(guessLetter == currentWord.charAt(i))
-                {
-                    TextView textView = (TextView) gameLayout.getChildAt(i);
-                    textView.setText(guessLetterString);
-                    correctLetterCount++;
-                }
-            }
+        displayOpenedWord();
+        displayIncorrectlyGuessedLetters();
+        displayHangman();
 
-            if(correctLetterCount >= currentWord.length())
-            {
+        if (gameModel.getGameEnded()){
+            if (gameModel.getGameWon()){
                 setGameWon();
             }
-        }
-        //otherwise
-        //increase the incorect letter count
-        //change the image
-        //check if the game is lost
-        //display the current word
-            //using the for loop iterate threw current word length
-            //to get the current word lengt use .length() method
-            //check if the current words letter is blank
-        else
-        {
-            incorectLetterCount++;
-            //show another image
-            ImageView image = (ImageView) findViewById(R.id.imageView);
-            image.setImageResource(GameHelpers.getResourceIdByCount(incorectLetterCount));
-
-            if(incorectLetterCount > TRY_COUNT)
-            {
+            else {
                 setGameLost();
-
-                //show current word
-                for( int i = 0; i < currentWord.length(); i++ )
-                {
-                    if('_' == currentWord.charAt(i))
-                    {
-                        TextView textView = (TextView) gameLayout.getChildAt(i);
-                        textView.setText(guessLetterString);
-                        correctLetterCount++;
-                        if(correctLetterCount >= currentWord.length())
-                        {
-                            setGameWon();
-                        }
-                    }
-                }
-
             }
-
         }
     }
 
-    /*================================================================================================================
-    DO NOT TOUCH THE CODE!!!!!
-    OR THE BOOGIE MAN WILL COME AT NIGHT AND EAT YOUR PARENTS!
-    AND YOU WILL NOT GET ANY PRESENTS THIS CHRISTMAS
-    BUT YOU CAN LOOK AT IT OF COURSE :)
-    ====================================================================================================================*/
+    private void displayHangman() {
+        int incorrectlyGuessedLetterCount = gameModel.getIncorrectlyGuessedLetterCount();
+
+        ImageView image = (ImageView) findViewById(R.id.imageView);
+        image.setImageResource(GameHelpers.getResourceIdByCount(incorrectlyGuessedLetterCount));
+    }
+
+    private void displayIncorrectlyGuessedLetters() {
+        Character[] incorrectlyGuessedLetters = gameModel.getIncorrectlyGuessedLetters();
+        String joinedLetters = TextUtils.join(", ", incorrectlyGuessedLetters).toUpperCase();
+
+        TextView guessedTextView = (TextView) findViewById(R.id.guessed_letters_text_view);
+        guessedTextView.setText( "Guessed letters: " + joinedLetters);
+    }
+
+    private void displayOpenedWord() {
+        Character[] openedWord = gameModel.getCurrentlyOpenedWord();
+
+        for(int i = 0; i < openedWord.length; i++){
+            TextView textView = (TextView) gameLayout.getChildAt(i);
+            textView.setText(openedWord[i].toString().toUpperCase());
+        }
+    }
 
     private void closeKeyboard() {
         //close keyboard
@@ -131,22 +97,6 @@ public class Game extends AppCompatActivity {
         }
     }
 
-    /*
-    Updates guessed letters
-    Add string to guessedLetters. And updates textView text.
-    */
-    private void UpdateGuessedLetters(String guessedLetter) {
-        if(guessedLetter.isEmpty() == false) {
-            guessedLetters.add(guessedLetter);
-        }
-        TextView guessedTextView = (TextView) findViewById(R.id.guessed_letters_text_view);
-        guessedTextView.setText( "Guessed letters: " + TextUtils.join(", ", guessedLetters));
-    }
-
-    /*
-  Sets the game is lost state.
-  Shows the game over text. And sets gameEnded flag.
-   */
     private void setGameLost() {
         TextView gameOverTextView = (TextView) findViewById(R.id.game_over_text_view);
         gameOverTextView.setText("You lost.");
@@ -163,10 +113,6 @@ public class Game extends AppCompatActivity {
 
     }
 
-    /*
-    Sets the game is won state.
-    Shows the game over text. And sets gameEnded flag.
-     */
     private void setGameWon() {
         TextView gameOverTextView = (TextView) findViewById(R.id.game_over_text_view);
         gameOverTextView.setText("You won.");
@@ -180,13 +126,15 @@ public class Game extends AppCompatActivity {
         submitLetterButton.setVisibility(View.INVISIBLE);
         TextView guessedTextView = (TextView) findViewById(R.id.guessed_letters_text_view);
         guessedTextView.setVisibility(View.INVISIBLE);
-
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        wordList = new WordList(getAssets());
+        gameModel = new GameModel(wordList, 5);
 
         Button submitLetterButton = (Button) findViewById(R.id.submit_letter_button);
         submitLetterButton.setOnClickListener(new View.OnClickListener() {
@@ -200,14 +148,14 @@ public class Game extends AppCompatActivity {
         restartGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initGame();
+                initializeGame();
             }
         });
 
-        initGame();
+        initializeGame();
     }
 
-    private void initGame() {
+    private void initializeGame() {
         // hides game over text
         View gameOverLayout = findViewById(R.id.game_over_layout);
         gameOverLayout.setVisibility(View.INVISIBLE);
@@ -222,19 +170,20 @@ public class Game extends AppCompatActivity {
         // clears all existing crates in the grid
         gameLayout = (LinearLayout) findViewById(R.id.game_layout);
         gameLayout.removeAllViews();
+
+        gameModel.initializeGame();
+
         generatePuzzle(gameLayout);
 
-        UpdateGuessedLetters("");
-        incorectLetterCount = 0;
-        correctLetterCount = 0;
+        //ImageView image = (ImageView) findViewById(R.id.imageView);
+        //image.setImageResource(0);
 
-        ImageView image = (ImageView) findViewById(R.id.imageView);
-        image.setImageResource(0);
+        updateGameState();
     }
 
     private void generatePuzzle(LinearLayout layout) {
-        currentWord = WordsList.GetGamesWord();
-        guessedLetters = new ArrayList<>();
+        String currentWord = gameModel.getCurrentWord();
+
         for( int i = 0; i < currentWord.length(); i++ )
         {
             TextView textView = new TextView(this);

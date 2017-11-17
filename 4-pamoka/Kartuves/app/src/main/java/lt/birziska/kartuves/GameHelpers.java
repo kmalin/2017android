@@ -2,13 +2,9 @@ package lt.birziska.kartuves;
 
 import java.util.List;
 
-/**
- * Created by audrius.masiulionis on 2017-11-16.
- */
-
 public class GameHelpers {
     public static boolean wordContainsLetter(char letter, String word){
-        return word.indexOf(letter) > 0;
+        return word.indexOf(letter) > -1;
     }
 
     public static char toChar(String str){
@@ -40,10 +36,4 @@ public class GameHelpers {
                 return 0;
         }
     }
-
-
-
-
-
-
 }
