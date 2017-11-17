@@ -1,7 +1,5 @@
 package lt.birziska.kartuves;
 
-import java.util.List;
-
 public class GameHelpers {
     public static boolean wordContainsLetter(char letter, String word){
         return word.indexOf(letter) > -1;

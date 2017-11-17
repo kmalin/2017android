@@ -5,9 +5,7 @@ import android.content.res.AssetManager;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class WordList {
@@ -20,16 +18,18 @@ public class WordList {
 
     public String pickRandomWord(int length)
     {
-        /*List<String> correctLengthWords = new ArrayList<String>();
+        List<String> correctLengthWords = new ArrayList<String>();
+
+        int[] lengths = new int[16];
         for (String word: words) {
             if (word.length() == length){
                 correctLengthWords.add(word);
             }
+            lengths[word.length()]++;
         }
 
         String word = correctLengthWords.get(getRandomIndex(correctLengthWords.size()));
-        */
-        String word = words[getRandomIndex(words.length)];
+
         return word;
     }
 

@@ -1,9 +1,10 @@
 package lt.birziska.kartuves;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,15 +13,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 public class Game extends AppCompatActivity {
+
+    public static final String DATA_WORD_LENGTH = "lt.birziska.kartuves.Game.WORD_LENGTH";
 
     private LinearLayout gameLayout;
     private WordList wordList;
     private GameModel gameModel;
+    private int wordLength;
 
     private void submitLetter() {
         //close keybord
@@ -104,6 +107,9 @@ public class Game extends AppCompatActivity {
         View gameOverLayout = findViewById(R.id.game_over_layout);
         gameOverLayout.setVisibility(View.VISIBLE);
 
+        Spinner spinner = (Spinner) findViewById(R.id.spinner2);
+        spinner.setSelection(wordLength - 3);
+
         View textInputLayout = findViewById(R.id.text_input_layout);
         textInputLayout.setVisibility(View.INVISIBLE);
         View submitLetterButton = findViewById(R.id.submit_letter_button);
@@ -120,6 +126,9 @@ public class Game extends AppCompatActivity {
         View gameOverLayout = findViewById(R.id.game_over_layout);
         gameOverLayout.setVisibility(View.VISIBLE);
 
+        Spinner spinner = (Spinner) findViewById(R.id.spinner2);
+        spinner.setSelection(wordLength - 3);
+
         View textInputLayout = findViewById(R.id.text_input_layout);
         textInputLayout.setVisibility(View.INVISIBLE);
         View submitLetterButton = findViewById(R.id.submit_letter_button);
@@ -134,7 +143,12 @@ public class Game extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         wordList = new WordList(getAssets());
-        gameModel = new GameModel(wordList, 5);
+
+        Intent intent = getIntent();
+        wordLength = intent.getIntExtra(Game.DATA_WORD_LENGTH, 5);
+        Spinner spinner = (Spinner) findViewById(R.id.spinner2);
+        spinner.setSelection(wordLength - 3);
+        gameModel = new GameModel(wordList);
 
         Button submitLetterButton = (Button) findViewById(R.id.submit_letter_button);
         submitLetterButton.setOnClickListener(new View.OnClickListener() {
@@ -171,12 +185,11 @@ public class Game extends AppCompatActivity {
         gameLayout = (LinearLayout) findViewById(R.id.game_layout);
         gameLayout.removeAllViews();
 
-        gameModel.initializeGame();
+        Spinner spinner = (Spinner) findViewById(R.id.spinner2);
+        wordLength = Integer.parseInt(String.valueOf(spinner.getSelectedItem()));
+        gameModel.initializeGame(wordLength);
 
         generatePuzzle(gameLayout);
-
-        //ImageView image = (ImageView) findViewById(R.id.imageView);
-        //image.setImageResource(0);
 
         updateGameState();
     }

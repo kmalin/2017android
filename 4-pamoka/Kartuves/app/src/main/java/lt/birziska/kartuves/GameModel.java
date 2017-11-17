@@ -21,12 +21,12 @@ public class GameModel {
     private int correctlyOpenedLetterCount;
     private int incorrectlyGuessedLetterCount;
 
-    public GameModel(WordList wordList, int wordLength){
+    public GameModel(WordList wordList){
         this.wordList = wordList;
-        this.wordLength = wordLength;
     }
 
-    public void initializeGame(){
+    public void initializeGame(int wordLength){
+        this.wordLength = wordLength;
         gameEnded = false;
         gameWon = false;
 
@@ -35,7 +35,7 @@ public class GameModel {
         incorrectlyGuessedLetterCount = 0;
         correctlyOpenedLetterCount = 0;
 
-        currentWord = wordList.pickRandomWord(wordLength).toLowerCase();
+        currentWord = wordList.pickRandomWord(this.wordLength).toLowerCase();
         currentlyOpenedWord = new Character[currentWord.length()];
         Arrays.fill(currentlyOpenedWord, '_');
     }
