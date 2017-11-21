@@ -7,6 +7,8 @@
    pamokos užduočių failas parsisiuntimui - [2-pamoka.zip](https://github.com/kmalin/2017android/blob/master/2-pamoka/2-pamoka.zip?raw=true)
 3. [Sąlygos sakiniai ir duomenų masyvai](https://docs.google.com/document/d/1wFcunvJGH9FxLYrly02ivTcNea9pyEVyPwkOtqkxWBc/edit?usp=sharing),
    pamokos užduočių failas parsisiuntimui - [3-pamoka.zip](https://github.com/kmalin/2017android/blob/master/3-pamoka/3-pamoka.zip?raw=true)
+4. [Ciklai ir sąrašai](https://docs.google.com/document/d/132J90xZGJP4fqK9bt8H5sqqiHEFCL6eQbc9mSIESE5g/edit?usp=sharing),
+   pamokos užduočių failas parsisiuntimui - [4-pamoka.zip](https://github.com/kmalin/2017android/blob/master/4-pamoka/4-pamoka.zip?raw=true)
 
 
 ### Programinė įranga
