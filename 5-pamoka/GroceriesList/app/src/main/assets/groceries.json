@@ -1,0 +1,9 @@
+{
+  "groceries": [
+    {
+      "name": "Test",
+      "price": "1",
+      "quantity": 1
+    }
+  ]
+}
