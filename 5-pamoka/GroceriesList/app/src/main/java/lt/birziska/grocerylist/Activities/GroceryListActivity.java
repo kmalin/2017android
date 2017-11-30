@@ -15,6 +15,7 @@ import lt.birziska.grocerylist.R;
 
 public class GroceryListActivity extends AppCompatActivity {
 
+    //this is for edit grocery
     public static final String GROCERY_ID = "GroceryId";
 
     private ListView groceryListView;
@@ -43,7 +44,6 @@ public class GroceryListActivity extends AppCompatActivity {
         @Override
         public void onClick(View item) {
             Intent intent = new Intent(GroceryListActivity.this, EditGroceryActivity.class);
-//            intent.putExtra("", message);
             startActivity(intent);
         }
     }

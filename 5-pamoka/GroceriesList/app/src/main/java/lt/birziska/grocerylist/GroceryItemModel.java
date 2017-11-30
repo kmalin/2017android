@@ -4,18 +4,18 @@ import java.math.BigDecimal;
 
 public class GroceryItemModel {
     private String id;
-    String getId(){ return id; }
-    void setId(String id){ this.id = id; }
+    public String getId(){ return id; }
+    public void setId(String id){ this.id = id; }
 
     private String name;
-    String getName(){ return name; }
-    void setName(String name){ this.name = name; }
+    public String getName(){ return name; }
+    public void setName(String name){ this.name = name; }
 
     private BigDecimal price;
-    BigDecimal getPrice(){ return price; }
-    void setPrice(BigDecimal price){ this.price = price; }
+    public BigDecimal getPrice(){ return price; }
+    public void setPrice(BigDecimal price){ this.price = price; }
 
     private Integer quantity;
-    Integer getQuantity(){ return quantity; }
-    void setQuantity(Integer quantity){ this.quantity = quantity; }
+    public Integer getQuantity(){ return quantity; }
+    public void setQuantity(Integer quantity){ this.quantity = quantity; }
 }

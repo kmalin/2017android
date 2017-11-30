@@ -22,6 +22,7 @@
             android:layout_height="match_parent">
 
             <Button
+                android:id="@+id/save_button"
                 android:text="Save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -49,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:gravity="center"
-                android:text="TextView"
+                android:text="Name"
                 android:textSize="18sp" />
 
             <EditText
@@ -59,7 +60,7 @@
                 android:layout_weight="0.5"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Name" />
+                android:hint="Name" />
 
         </LinearLayout>
 
@@ -74,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:gravity="center"
-                android:text="TextView"
+                android:text="Price"
                 android:textSize="18sp" />
 
             <EditText
@@ -83,8 +84,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:inputType="numberDecimal"
+                android:hint="1.1" />
         </LinearLayout>
 
         <LinearLayout
@@ -99,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:gravity="center"
-                android:text="TextView"
+                android:text="Quantity"
                 android:textSize="18sp" />
 
             <EditText
@@ -108,8 +109,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:inputType="number"
+                android:hint="1" />
         </LinearLayout>
 
     </LinearLayout>
