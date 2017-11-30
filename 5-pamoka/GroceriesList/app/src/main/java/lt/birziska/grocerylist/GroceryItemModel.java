@@ -2,7 +2,11 @@ package lt.birziska.grocerylist;
 
 import java.math.BigDecimal;
 
-public class Grocery {
+public class GroceryItemModel {
+    private String id;
+    String getId(){ return id; }
+    void setId(String id){ this.id = id; }
+
     private String name;
     String getName(){ return name; }
     void setName(String name){ this.name = name; }

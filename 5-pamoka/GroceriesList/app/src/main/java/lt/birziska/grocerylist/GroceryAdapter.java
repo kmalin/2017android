@@ -13,9 +13,9 @@ public class GroceryAdapter extends BaseAdapter {
 
     private Context adapterContext;
     private LayoutInflater layoutInflater;
-    private ArrayList<Grocery> groceries;
+    private ArrayList<GroceryItemModel> groceries;
 
-    public GroceryAdapter(Context context, ArrayList<Grocery> groceries) {
+    public GroceryAdapter(Context context, ArrayList<GroceryItemModel> groceries) {
         adapterContext = context;
         this.groceries = groceries;
         layoutInflater = (LayoutInflater) adapterContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -45,7 +45,7 @@ public class GroceryAdapter extends BaseAdapter {
         TextView groceryPrice =
                 (TextView) rowView.findViewById(R.id.grocery_price);
 
-        Grocery recipe = (Grocery) getItem(i);
+        GroceryItemModel recipe = (GroceryItemModel) getItem(i);
 
         groceryName.setText(recipe.getName());
         groceryPrice.setText(recipe.getPrice().toString());

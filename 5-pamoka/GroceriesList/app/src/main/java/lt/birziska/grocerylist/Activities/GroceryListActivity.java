@@ -1,21 +1,21 @@
 package lt.birziska.grocerylist.Activities;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import java.math.BigDecimal;
 import java.util.ArrayList;
-
 import lt.birziska.grocerylist.GroceriesList;
-import lt.birziska.grocerylist.Grocery;
+import lt.birziska.grocerylist.GroceryItemModel;
 import lt.birziska.grocerylist.GroceryAdapter;
 import lt.birziska.grocerylist.R;
 
 public class GroceryListActivity extends AppCompatActivity {
+
+    public static final String GROCERY_ID = "GroceryId";
 
     private ListView groceryListView;
     @Override
@@ -23,12 +23,16 @@ public class GroceryListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grocery_list);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new FabClickListener() );
 
         groceryListView = (ListView) findViewById(R.id.grocery_list_view);
 
-        ArrayList<Grocery> groceryList = GroceriesList.getGroceriesFromFile(this);
+        GroceriesList groceriesList = new GroceriesList(this);
+        ArrayList<GroceryItemModel> groceryList = groceriesList.getGroceries();
 
         GroceryAdapter adapter = new GroceryAdapter(this, groceryList);
         groceryListView.setAdapter(adapter);
@@ -36,10 +40,11 @@ public class GroceryListActivity extends AppCompatActivity {
 
     private class FabClickListener
             implements View.OnClickListener {
-
         @Override
         public void onClick(View item) {
-            // go to grocery creation
+            Intent intent = new Intent(GroceryListActivity.this, EditGroceryActivity.class);
+//            intent.putExtra("", message);
+            startActivity(intent);
         }
     }
 }

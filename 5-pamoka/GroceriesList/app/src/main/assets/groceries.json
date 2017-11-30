@@ -3,7 +3,8 @@
     {
       "name": "Test",
       "price": "1",
-      "quantity": 1
+      "quantity": 1,
+      "id": "1"
     }
   ]
 }

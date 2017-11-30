@@ -7,12 +7,50 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GroceriesList {
 
-    public static ArrayList<Grocery> getGroceriesFromFile(Context context){
-        final ArrayList<Grocery> groceriesList = new ArrayList<>();
+    private Context context;
+    private ArrayList<GroceryItemModel> groceriesList;
 
+    public GroceriesList(Context context)
+    {
+        this.context = context;
+    }
+
+    public GroceryItemModel getGroceryItem(String groceryItemId) {
+        if(groceriesList == null || groceriesList.isEmpty())
+        {
+            getGroceriesFromFile();
+        }
+
+        GroceryItemModel result = null;
+        for(GroceryItemModel groceryItem : groceriesList){
+            if(groceryItem.getId() == groceryItemId)
+            {
+                result = groceryItem;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<GroceryItemModel> getGroceries(){
+
+        if(!(groceriesList == null || groceriesList.isEmpty()))
+        {
+            return groceriesList;
+        }
+
+        getGroceriesFromFile();
+
+        return groceriesList;
+    }
+
+    private void getGroceriesFromFile()
+    {
+        groceriesList = new ArrayList<>();
         try {
             // Load data
             String jsonString = loadJsonFromAsset("groceries.json", context);
@@ -21,23 +59,21 @@ public class GroceriesList {
 
             for(int i = 0; i < groceries.length(); i++){
                 JSONObject groceryJSON = groceries.getJSONObject(i);
-                Grocery grocery = new Grocery();
+                GroceryItemModel groceryItemModel = new GroceryItemModel();
 
+                groceryItemModel.setId(groceryJSON.getString("id"));
+                groceryItemModel.setName(groceryJSON.getString("name"));
+                groceryItemModel.setPrice(new BigDecimal(groceryJSON.getString("price")));
+                groceryItemModel.setQuantity(groceryJSON.getInt("quantity"));
 
-                grocery.setName(groceryJSON.getString("name"));
-                grocery.setPrice(new BigDecimal(groceryJSON.getString("price")));
-                grocery.setQuantity(groceryJSON.getInt("quantity"));
-
-                groceriesList.add(grocery);
+                groceriesList.add(groceryItemModel);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        return groceriesList;
     }
 
-    private static String loadJsonFromAsset(String filename, Context context) {
+    private String loadJsonFromAsset(String filename, Context context) {
         String json = null;
 
         try {
