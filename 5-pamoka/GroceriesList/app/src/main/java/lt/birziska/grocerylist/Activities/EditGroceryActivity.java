@@ -7,13 +7,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
 import java.math.BigDecimal;
+
+import lt.birziska.grocerylist.GroceriesListService;
+import lt.birziska.grocerylist.GroceryItemInterface;
 import lt.birziska.grocerylist.GroceryItemModel;
 import lt.birziska.grocerylist.R;
 
 public class EditGroceryActivity  extends AppCompatActivity {
 
     private Toolbar toolbar;
+    private GroceriesListService service;
+    private Integer groceryItemId;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,17 +27,45 @@ public class EditGroceryActivity  extends AppCompatActivity {
 
         setToolbar();
 
+        service = new GroceriesListService(this);
+
         Intent intent = getIntent();
         String groceryId = intent.getStringExtra(GroceryListActivity.GROCERY_ID);
-        setTitle(groceryId);
+
+        if(groceryId != null && !groceryId.isEmpty()) {
+            groceryItemId = Integer.parseInt(groceryId);
+        } else {
+            groceryItemId = null;
+        }
+
+        displayGroceryItem(groceryItemId);
+        setTitle(groceryItemId);
+
+
 
         Button saveButton = (Button) findViewById(R.id.save_button);
         saveButton.setOnClickListener(new SaveButtonClickListener());
     }
 
-    private void setTitle(String groceryId)
+    private void displayGroceryItem(Integer id) {
+        if(id != null)
+        {
+            GroceryItemInterface item = service.getItem(id);
+
+            EditText nameEditText = (EditText)findViewById(R.id.nameEditText);
+            nameEditText.setText(item.getName());
+
+            EditText priceEditText = (EditText)findViewById(R.id.priceEditText);
+            priceEditText.setText(item.getPrice().toString());
+
+            EditText quantityEditText = (EditText)findViewById(R.id.quantityEditText);
+            quantityEditText.setText(item.getQuantity().toString());
+        }
+    }
+
+    private void setTitle(Integer id)
     {
-        if(groceryId == null || groceryId.isEmpty())
+        if(id == null)
         {
             getSupportActionBar().setTitle("Create grocery");
         } else
@@ -52,14 +86,16 @@ public class EditGroceryActivity  extends AppCompatActivity {
             implements View.OnClickListener {
         @Override
         public void onClick(View item) {
-            //should save grocery
-            Intent intent = new Intent(EditGroceryActivity.this, GroceryListActivity.class);
-            startActivity(intent);
+            GroceryItemModel groceryItem = getGroceryItem();
+            service.saveItem(groceryItem);
+
+            finish(); // goes back to the GroceryListActivity
         }
 
         private GroceryItemModel getGroceryItem()
         {
             GroceryItemModel groceryItem =  new GroceryItemModel();
+            groceryItem.setId(groceryItemId);
 
             EditText nameEditText = (EditText)findViewById(R.id.nameEditText);
             groceryItem.setName(nameEditText.getText().toString());
@@ -68,7 +104,7 @@ public class EditGroceryActivity  extends AppCompatActivity {
             groceryItem.setPrice(new BigDecimal(priceEditText.getText().toString()));
 
             EditText quantityEditText = (EditText)findViewById(R.id.quantityEditText);
-            groceryItem.setQuantity(Integer.parseInt(quantityEditText.getText().toString()));
+            groceryItem.setQuantity(new BigDecimal(quantityEditText.getText().toString()));
 
             return groceryItem;
         }

@@ -1,4 +1,4 @@
-package lt.birziska.grocerylist;
+package lt.birziska.grocerylist.Helpers;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,15 +7,18 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
+
+import lt.birziska.grocerylist.GroceryItemInterface;
+import lt.birziska.grocerylist.R;
 
 public class GroceryAdapter extends BaseAdapter {
 
     private Context adapterContext;
     private LayoutInflater layoutInflater;
-    private ArrayList<GroceryItemModel> groceries;
+    private List<GroceryItemInterface> groceries;
 
-    public GroceryAdapter(Context context, ArrayList<GroceryItemModel> groceries) {
+    public GroceryAdapter(Context context, List<GroceryItemInterface> groceries) {
         adapterContext = context;
         this.groceries = groceries;
         layoutInflater = (LayoutInflater) adapterContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -40,15 +43,13 @@ public class GroceryAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         View rowView = layoutInflater.inflate(R.layout.grocery_list_item, viewGroup, false);
 
-        TextView groceryName =
-                (TextView) rowView.findViewById(R.id.grocery_name);
-        TextView groceryPrice =
-                (TextView) rowView.findViewById(R.id.grocery_price);
+        TextView groceryName = (TextView) rowView.findViewById(R.id.grocery_name);
+        TextView groceryPrice = (TextView) rowView.findViewById(R.id.grocery_price);
 
-        GroceryItemModel recipe = (GroceryItemModel) getItem(i);
+        GroceryItemInterface item = (GroceryItemInterface) getItem(i);
 
-        groceryName.setText(recipe.getName());
-        groceryPrice.setText(recipe.getPrice().toString());
+        groceryName.setText(item.getName());
+        groceryPrice.setText(item.getPrice().toString());
 
         return rowView;
     }

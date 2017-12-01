@@ -59,8 +59,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="Name" />
+                android:hint="Name"
+                android:inputType="text" />
 
         </LinearLayout>
 
@@ -109,8 +109,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:ems="10"
-                android:inputType="number"
-                android:hint="1" />
+                android:hint="1"
+                android:inputType="numberDecimal" />
         </LinearLayout>
 
     </LinearLayout>

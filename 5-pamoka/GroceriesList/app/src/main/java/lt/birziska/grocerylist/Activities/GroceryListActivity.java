@@ -6,11 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import java.util.ArrayList;
-import lt.birziska.grocerylist.GroceriesList;
-import lt.birziska.grocerylist.GroceryItemModel;
-import lt.birziska.grocerylist.GroceryAdapter;
+
+import java.util.List;
+
+import lt.birziska.grocerylist.GroceriesListService;
+import lt.birziska.grocerylist.GroceryItemInterface;
+import lt.birziska.grocerylist.Helpers.GroceryAdapter;
 import lt.birziska.grocerylist.R;
 
 public class GroceryListActivity extends AppCompatActivity {
@@ -19,6 +22,8 @@ public class GroceryListActivity extends AppCompatActivity {
     public static final String GROCERY_ID = "GroceryId";
 
     private ListView groceryListView;
+    private GroceriesListService service;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,11 +37,24 @@ public class GroceryListActivity extends AppCompatActivity {
 
         groceryListView = (ListView) findViewById(R.id.grocery_list_view);
 
-        GroceriesList groceriesList = new GroceriesList(this);
-        ArrayList<GroceryItemModel> groceryList = groceriesList.getGroceries();
+        service = new GroceriesListService(this);
+
+        List<GroceryItemInterface> groceryList = service.getList();
 
         GroceryAdapter adapter = new GroceryAdapter(this, groceryList);
         groceryListView.setAdapter(adapter);
+        groceryListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View arg1,int position, long id)
+            {
+                GroceryItemInterface entry = (GroceryItemInterface) adapterView.getAdapter().getItem(position);
+
+                Intent intent = new Intent(GroceryListActivity.this, EditGroceryActivity.class);
+                intent.putExtra(GROCERY_ID, entry.getId().toString());
+                startActivity(intent);
+            }
+        });
     }
 
     private class FabClickListener
