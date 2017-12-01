@@ -1,4 +1,4 @@
-package lt.birziska.grocerylist.Activities;
+package lt.birziska.grocerylist.Helpers;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -11,9 +11,8 @@ import android.widget.ListView;
 
 import java.util.List;
 
-import lt.birziska.grocerylist.GroceriesListService;
+import lt.birziska.grocerylist.GroceryItemEditActivity;
 import lt.birziska.grocerylist.GroceryItemInterface;
-import lt.birziska.grocerylist.Helpers.GroceryAdapter;
 import lt.birziska.grocerylist.R;
 
 public class GroceryListActivity extends AppCompatActivity {
@@ -39,10 +38,6 @@ public class GroceryListActivity extends AppCompatActivity {
 
         service = new GroceriesListService(this);
 
-        List<GroceryItemInterface> groceryList = service.getList();
-
-        GroceryAdapter adapter = new GroceryAdapter(this, groceryList);
-        groceryListView.setAdapter(adapter);
         groceryListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
@@ -50,18 +45,28 @@ public class GroceryListActivity extends AppCompatActivity {
             {
                 GroceryItemInterface entry = (GroceryItemInterface) adapterView.getAdapter().getItem(position);
 
-                Intent intent = new Intent(GroceryListActivity.this, EditGroceryActivity.class);
+                Intent intent = new Intent(GroceryListActivity.this, GroceryItemEditActivity.class);
                 intent.putExtra(GROCERY_ID, entry.getId().toString());
                 startActivity(intent);
             }
         });
     }
 
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+
+        List<GroceryItemInterface> groceryList = service.getList();
+        GroceryAdapter adapter = new GroceryAdapter(this, groceryList);
+        groceryListView.setAdapter(adapter);
+    }
+
     private class FabClickListener
             implements View.OnClickListener {
         @Override
         public void onClick(View item) {
-            Intent intent = new Intent(GroceryListActivity.this, EditGroceryActivity.class);
+            Intent intent = new Intent(GroceryListActivity.this, GroceryItemEditActivity.class);
             startActivity(intent);
         }
     }

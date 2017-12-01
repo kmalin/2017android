@@ -1,4 +1,4 @@
-package lt.birziska.grocerylist;
+package lt.birziska.grocerylist.Helpers;
 
 import android.content.Context;
 
@@ -12,6 +12,8 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import lt.birziska.grocerylist.GroceryItemInterface;
 
 public class GroceriesListService {
 

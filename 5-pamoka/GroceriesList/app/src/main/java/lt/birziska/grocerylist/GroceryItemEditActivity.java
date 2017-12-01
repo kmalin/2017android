@@ -1,4 +1,4 @@
-package lt.birziska.grocerylist.Activities;
+package lt.birziska.grocerylist;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,12 +10,10 @@ import android.widget.EditText;
 
 import java.math.BigDecimal;
 
-import lt.birziska.grocerylist.GroceriesListService;
-import lt.birziska.grocerylist.GroceryItemInterface;
-import lt.birziska.grocerylist.GroceryItemModel;
-import lt.birziska.grocerylist.R;
+import lt.birziska.grocerylist.Helpers.GroceryListActivity;
+import lt.birziska.grocerylist.Helpers.GroceriesListService;
 
-public class EditGroceryActivity  extends AppCompatActivity {
+public class GroceryItemEditActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private GroceriesListService service;

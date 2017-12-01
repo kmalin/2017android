@@ -5,7 +5,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:fitsSystemWindows="true"
-        tools:context="lt.birziska.grocerylist.Activities.EditGroceryActivity">
+        tools:context="lt.birziska.grocerylist.GroceryItemEditActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
