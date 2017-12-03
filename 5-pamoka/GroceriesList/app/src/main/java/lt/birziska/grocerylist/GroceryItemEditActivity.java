@@ -43,6 +43,11 @@ public class GroceryItemEditActivity extends GroceryItemEditBaseActivity {
 
         // Create the object
         // Set properties: Name, Price, Quantity
+        // Grocery item edit form has following EditText elements that you should use:
+        // R.id.nameEditText
+        // R.id.priceEditText
+        // R.id.quantityEditText
+
         // Also set the Id, used to identify the grocery item in the list.
         // Id can be retrieved from the class field - groceryItemId
 
