@@ -41,22 +41,15 @@ public class GroceryItemEditActivity extends GroceryItemEditBaseActivity {
 
     private void onSaveClick(View item) {
 
-        GroceryItemModel groceryItem =  new GroceryItemModel();
-        groceryItem.setId(groceryItemId);
-
-        EditText nameEditText = (EditText)findViewById(R.id.nameEditText);
-        groceryItem.setName(nameEditText.getText().toString());
-
-        EditText priceEditText = (EditText)findViewById(R.id.priceEditText);
-        groceryItem.setPrice(new BigDecimal(priceEditText.getText().toString()));
-
-        EditText quantityEditText = (EditText)findViewById(R.id.quantityEditText);
-        groceryItem.setQuantity(new BigDecimal(quantityEditText.getText().toString()));
+        // Create the object
+        // Set properties: Name, Price, Quantity
+        // Also set the Id, used to identify the grocery item in the list.
+        // Id can be retrieved from the class field - groceryItemId
 
         // Call service method saveItem to save the object to the list
-        service.saveItem(groceryItem);
+        // service.saveItem(groceryItem);
 
         // uncomment this to close edit screen
-        finish(); // goes back to the GroceryListActivity
+        // finish(); // goes back to the GroceryListActivity
     }
 }
