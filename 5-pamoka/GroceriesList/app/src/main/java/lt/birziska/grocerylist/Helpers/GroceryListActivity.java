@@ -8,7 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import lt.birziska.grocerylist.GroceryItemEditActivity;
@@ -59,6 +61,18 @@ public class GroceryListActivity extends AppCompatActivity {
         List<GroceryItemInterface> groceryList = service.getList();
         GroceryAdapter adapter = new GroceryAdapter(this, groceryList);
         groceryListView.setAdapter(adapter);
+
+        updateListSum(groceryList);
+    }
+
+    private void updateListSum(List<GroceryItemInterface> list) {
+        TextView sumView = (TextView) findViewById(R.id.listSumView);
+
+        BigDecimal sum = new BigDecimal(0);
+        for(GroceryItemInterface item : list) {
+            sum = sum.add(item.getSum());
+        }
+        sumView.setText(sum.toString());
     }
 
     private class FabClickListener
