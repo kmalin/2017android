@@ -44,12 +44,12 @@ public class GroceryAdapter extends BaseAdapter {
         View rowView = layoutInflater.inflate(R.layout.grocery_list_item, viewGroup, false);
 
         TextView groceryName = (TextView) rowView.findViewById(R.id.grocery_name);
-        TextView groceryPrice = (TextView) rowView.findViewById(R.id.grocery_price);
+        TextView grocerySum = (TextView) rowView.findViewById(R.id.grocery_sum);
 
         GroceryItemInterface item = (GroceryItemInterface) getItem(i);
 
         groceryName.setText(item.getName());
-        groceryPrice.setText(item.getPrice().toString());
+        grocerySum.setText(item.getSum().toString());
 
         return rowView;
     }

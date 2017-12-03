@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
         <TextView
             android:id="@+id/grocery_name"
             android:layout_width="wrap_content"
@@ -10,11 +12,10 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:textSize="18sp"
-            tools:text="Name"
-            />
+            tools:text="Name" />
 
         <TextView
-            android:id="@+id/grocery_price"
+            android:id="@+id/grocery_sum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -22,6 +23,5 @@
             android:layout_marginRight="8dp"
             android:layout_marginTop="2dp"
             android:textSize="16sp"
-            tools:text="Price"
-            />
+            tools:text="Sum" />
 </RelativeLayout>

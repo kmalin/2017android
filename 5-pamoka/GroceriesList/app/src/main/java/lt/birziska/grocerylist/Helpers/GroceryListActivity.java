@@ -17,7 +17,6 @@ import lt.birziska.grocerylist.R;
 
 public class GroceryListActivity extends AppCompatActivity {
 
-    //this is for edit grocery
     public static final String GROCERY_ID = "GroceryId";
 
     private ListView groceryListView;
