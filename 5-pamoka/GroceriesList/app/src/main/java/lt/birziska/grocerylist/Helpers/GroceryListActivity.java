@@ -68,11 +68,16 @@ public class GroceryListActivity extends AppCompatActivity {
     private void updateListSum(List<GroceryItemInterface> list) {
         TextView sumView = (TextView) findViewById(R.id.listSumView);
 
-        BigDecimal sum = new BigDecimal(0);
-        for(GroceryItemInterface item : list) {
-            sum = sum.add(item.getSum());
+        try{
+            BigDecimal sum = new BigDecimal(0);
+            for(GroceryItemInterface item : list) {
+                sum = sum.add(item.getSum());
+            }
+            sumView.setText(sum.toString());
         }
-        sumView.setText(sum.toString());
+        catch (Exception exc) {
+            sumView.setText("0");
+        }
     }
 
     private class FabClickListener
