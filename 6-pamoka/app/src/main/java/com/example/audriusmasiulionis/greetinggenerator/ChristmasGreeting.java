@@ -3,12 +3,18 @@ package com.example.audriusmasiulionis.greetinggenerator;
 public class ChristmasGreeting {
     private final String friendsName;
     private final String friendsPhoneNumber;
-    private String greeting;
+    private boolean includeNewYearGreet;
+    private boolean includeBestWishesForFamily;
+    private boolean includeWarmthGreet;
+
+    private final String newYearGreeting = "Taip pat noriu pasveikinti tave su artėjančiais Naujaisais metais.";
+    private final String warmthGreeting = "Norėčiau palinkėti šilumos.";
+    private final String wishesForFamily = "Taip pat nepamiršk praleisti laiką su artimais žmonėmis";
+
 
     public ChristmasGreeting(String friendsName, String friendsPhoneNumber) {
         this.friendsName = friendsName;
         this.friendsPhoneNumber = friendsPhoneNumber;
-        this.greeting = formatInitialGreeting();
     }
 
     public String getFriendsPhoneNumber() {
@@ -16,20 +22,33 @@ public class ChristmasGreeting {
     }
 
     public void addNewYearsGreet(){
-        this.greeting = this.greeting.concat("\nTaip pat noriu pasveikinti tave su artėjančiais Naujaisais metais.");
+        this.includeNewYearGreet = true;
     }
 
     public void addWarmthGreet() {
-        this.greeting = this.greeting.concat("\nNorėčiau palinkėti šilumos.");
+        this.includeWarmthGreet = true;
     }
 
     public void addBestWishesForFamily() {
-        this.greeting = this.greeting.concat("\nTaip pat nepamiršk praleisti laiką su artimais žmonėmis");
+        this.includeBestWishesForFamily = true;
     }
 
+    @Override
+    public String toString() {
+        String greeting = String.format("Labas %s, \nNoriu palinkėti gražių Šv.Kalėdų.", this.friendsName);
 
-    private String formatInitialGreeting() {
-        return String.format("Labas, %s, \n Noriu pasveikinti tave su Šv.Kalėdomis", this.friendsName);
+        if (includeNewYearGreet){
+           greeting = greeting.concat("\n" + newYearGreeting);
+        }
+
+        if (includeWarmthGreet){
+            greeting = greeting.concat("\n" + warmthGreeting);
+        }
+
+        if (includeBestWishesForFamily){
+            greeting = greeting.concat("\n" + wishesForFamily);
+        }
+
+        return greeting;
     }
-
 }
