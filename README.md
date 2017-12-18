@@ -11,6 +11,8 @@
    pamokos užduočių failas parsisiuntimui - [4-pamoka.zip](https://github.com/kmalin/2017android/blob/master/4-pamoka/4-pamoka.zip?raw=true)
 5. [Klasės ir objektai](https://docs.google.com/document/d/1ghkEYNUWwqVbCvR1kuB6i7nbekzQqW3GEa1aBDQO5sM/edit?usp=sharing),
    pamokos užduočių failas parsisiuntimui - [5-pamoka.zip](https://github.com/kmalin/2017android/blob/master/5-pamoka/5-pamoka.zip?raw=true)
+6. [Klasės ir objektai #2](https://docs.google.com/document/d/1udED6oWD9cE0LEMWGp-u__UPnAGDEYdALEwiNIhQW4w/edit?usp=sharing),
+   pamokos užduočių failas parsisiuntimui - [6-pamoka.zip](https://github.com/kmalin/2017android/blob/master/6-pamoka/6-pamoka.zip?raw=true)
 
 
 ### Programinė įranga
