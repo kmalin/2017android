@@ -36,55 +36,46 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1">
-
-        <TextView
-            android:id="@+id/phoneView"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.7"
-            android:gravity="left"
-            android:text="Numeris"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/phoneEditText"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.3"
-            android:ems="10"
-            android:inputType="text"
-            android:textSize="18sp" />
-
-    </LinearLayout>
-
     <Switch
         android:id="@+id/newYearSwitch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Naujų metų sveikinimas" />
 
-    <Switch
-        android:id="@+id/warmthSwitch"
+    <EditText
+        android:id="@+id/extraTextEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Šilumos palinkėjimas" />
+        android:layout_height="143dp"
+        android:ems="10"
+        android:hint="Enter your message"
+        android:inputType="textPersonName" />
 
-    <Switch
-        android:id="@+id/familySwitch"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Linkėjimai šeimai" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Siųsti" />
+        <Button
+            android:id="@+id/smsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SMS" />
+
+        <Button
+            android:id="@+id/emailButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="E-mail" />
+
+        <Button
+            android:id="@+id/messageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Message" />
+    </LinearLayout>
 
 
 </LinearLayout>
