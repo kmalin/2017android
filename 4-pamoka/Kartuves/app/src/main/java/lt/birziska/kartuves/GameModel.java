@@ -58,30 +58,40 @@ public class GameModel {
 
     public void submitLetter(Character guessedLetter) {
 
-        // please check that character was not used before
-        // useful functions:
-        // allGuessedLetters.contains(char) - returns true if the list contains given element, otherwise false
-        // allGuessedLetters.add(char) - adds given element to the list
+        if (allGuessedLetters.contains(guessedLetter)){
+            return;
+        }
+        allGuessedLetters.add(guessedLetter);
 
+        if (GameHelpers.wordContainsLetter(guessedLetter, currentWord)){
 
-        // use for loop to iterate through all the indexes in the string
-        // useful functions:
-        // currentWord.length() - gets the length of the currentWord
-        // currentWord.charAt(index) - gets the character in the currentWord at the position index
+            for(int i = 0; i < currentWord.length(); i++){
+                char letterInAWord = currentWord.charAt(i);
 
-        // find the matches and reveal correctly guessed letters in currentlyOpenedWord array
-        // keep track how many letters you have opened in correctlyOpenedLetterCount
-        // keep track if there were any matches
+                if (letterInAWord == guessedLetter){
+                    correctlyOpenedLetterCount++;
+                    currentlyOpenedWord[i] = guessedLetter;
+                }
+            }
 
+            if (correctlyOpenedLetterCount == currentWord.length()){
+                gameEnded = true;
+                gameWon = true;
+            }
+        }
+        else {
+            incorrectlyGuessedLetterCount++;
+            incorrectlyGuessedLetters.add(guessedLetter);
+            if (incorrectlyGuessedLetterCount >= MAX_TRY_COUNT){
+                gameEnded = true;
+                gameWon = false;
 
-        // if there were any matches and if all the letters are guessed correctly
-        // then the game can end with a win
-
-        // if there were no matches
-        // store incorrectly guessed letter to incorrectlyGuessedLetters
-        // keep track of the number of incorrectly guessed letters in incorrectlyGuessedLetterCount
-        // if you have more incorrect guessed than is allowed, then the game must end with a loss
-        // for the end - reveal all un-guessed letters in currentlyOpenedWord
+                for(int i = 0; i < currentWord.length(); i++){
+                    char letterInAWord = currentWord.charAt(i);
+                    currentlyOpenedWord[i] = letterInAWord;
+                }
+            }
+        }
     }
 
     public boolean getGameEnded() {
